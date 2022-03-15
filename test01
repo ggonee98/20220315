@@ -1,0 +1,7 @@
+#include <stdio.h>
+
+int main()
+{
+  printf("This is a Test Case for my First Setting of GitHub!\n");
+  return 0;
+}
