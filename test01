@@ -1,7 +1,88 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-int main()
-{
-  printf("This is a Test Case for my First Setting of GitHub!\n");
-  return 0;
+typedef struct Student {
+	char name[7];
+	char gender[5];
+	char region[7];
+	char depart[13];
+	float grade;
+	int height;
+	int weight;
+}Person;
+
+void process_create();
+void process_create() {
+	printf("Create\n");
+}
+void process_load(char tok2);
+void process_load(char tok2) {
+	int i = 0;
+	Person* person01[44];
+
+	FILE* fp = fopen("list.txt", "r+t");
+
+	while (!feof(fp)) {
+		person01[i] = (Person*)malloc(sizeof(Person));
+		fscanf(fp, "%s %s %s %s %f %d %d", person01[i]->name, person01[i]->gender, person01[i]->region, person01[i]->depart,
+			&person01[i]->grade, &person01[i]->height, &person01[i]->weight);
+		printf("%s %s %s %s %.2f %d %d\n", person01[i]->name, person01[i]->gender, person01[i]->region, person01[i]->depart,
+			person01[i]->grade, person01[i]->height, person01[i]->weight);
+		free(person01[i]);
+		i++;
+	}
+	fclose(fp);
+}
+void process_print();
+void process_print() {
+	printf("Print\n");
+}
+void process_insert(char tok2, char tok3, char tok4, char tok5, char tok6, char tok7, char tok8);
+void process_insert(char tok2, char tok3, char tok4, char tok5, char tok6, char tok7, char tok8) {
+	printf("Insert\n");
+}
+void process_delete(char tok2);
+void process_delete(char tok2) {
+	printf("Delete\n");
+}
+void process_search(char tok2);
+void process_search(char tok2) {
+	printf("Search\n");
+}
+int main() {
+	FILE* fp = fopen("input.txt", "r+t");
+	char input[512];
+	char tok1[32], tok2[32], tok3[32], tok4[32], tok5[32], tok6[32], tok7[32], tok8[32], tok9[32];
+
+	while (fgets(input, 512, fp) != NULL) {
+		sscanf(input, "%s%s%s%s%s%s%s%s%s", tok1, tok2, tok3, tok4, tok5, tok6, tok7, tok8, tok9);
+		if (strcmp(tok1, "CREATE") == 0) {
+			process_create();
+			printf(" %s done ===================================================================\n\n", tok1);
+		}
+		else if (strcmp(tok1, "LOAD") == 0) {
+			process_load(tok2);
+			printf(" %s done ===================================================================\n\n", tok1);
+		}
+		else if (strcmp(tok1, "PRINT") == 0) {
+			process_print();
+			printf(" %s done ===================================================================\n\n", tok1);
+		}
+		else if (strcmp(tok1, "INSERT") == 0) {
+			process_insert(tok2, tok3, tok4, tok5, tok6, tok7, tok8);
+			printf(" %s done ===================================================================\n\n", tok1);
+		}
+		else if (strcmp(tok1, "DELETE") == 0) {
+			process_delete(tok2);
+			printf(" %s done ===================================================================\n\n", tok1);
+		}
+		else if (strcmp(tok1, "SEARCH") == 0) {
+			process_search(tok2);
+			printf(" %s done ===================================================================\n\n", tok1);
+		}
+		else
+			printf("%s is not a keyword.\n", tok1);
+	}
 }
